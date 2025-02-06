@@ -6,15 +6,17 @@
 #include <iostream>
 #include "scene/material.h"
 #include "scene/scene.h"
+#include "../engine/GameImgui.h"
 
 void Event::startEventKeyboard(sf::RenderWindow& window){
     while (const std::optional event = window.pollEvent())
         {
+            ImGui::SFML::ProcessEvent(window, *event);
             if (event->is<sf::Event::Closed>())
             {
                 window.close();
             } else if (event->is<sf::Event::Resized>()){
-                window.setSize({window.getView().getSize().x, window.getView().getSize().y});
+                // window.setSize({window.getView().getSize().x, window.getView().getSize().y});
             // } else if(const auto *MouseMoved = event->getIf<sf::Event::MouseMoved>()){
             //     sf::Mouse::setPosition({10, 10}, window);
             //     // std::cout << "x: " << sf::Mouse::getPosition().x << " y: " << sf::Mouse::getPosition().x << "\n";
