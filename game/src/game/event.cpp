@@ -13,26 +13,41 @@ void Event::startEventKeyboard(sf::RenderWindow& window){
             if (event->is<sf::Event::Closed>())
             {
                 window.close();
-            }
-            else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
+            } else if (event->is<sf::Event::Resized>()){
+                window.setSize({window.getView().getSize().x, window.getView().getSize().y});
+            // } else if(const auto *MouseMoved = event->getIf<sf::Event::MouseMoved>()){
+            //     sf::Mouse::setPosition({10, 10}, window);
+            //     // std::cout << "x: " << sf::Mouse::getPosition().x << " y: " << sf::Mouse::getPosition().x << "\n";
+
+
+            //     if (sf::Mouse::getPosition().x && sf::Mouse::getPosition().x > 930){
+
+            //     // std::cout << "x: " << sf::Mouse::getPosition().x << "\n";
+            //        std::cout << "Мышка вправо \n"; 
+            //     // sf::Mouse::setPosition({10, 10}, window);
+            //     } else if (sf::Mouse::getPosition().x && sf::Mouse::getPosition().x < 930){
+            //        std::cout << "Мышка влево \n"; 
+            //     }
+            }else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Escape){
                     window.close();
                 } else if(keyPressed->scancode == sf::Keyboard::Scancode::D) {
-                    Material::fringe0.setPosition({Material::fringe0.getPosition().x + (5000000.0f * Game::deltaTime), Material::fringe0.getPosition().y});
-                    Material::fringe1.setPosition({Material::fringe1.getPosition().x + (5000000.0f * Game::deltaTime), Material::fringe1.getPosition().y});
+                    Material::triangle0.setPosition({Material::triangle0.getPosition().x + (5000000.0f * Game::deltaTime), Material::triangle0.getPosition().y});
+                    Material::triangle1.setPosition({Material::triangle1.getPosition().x + (5000000.0f * Game::deltaTime), Material::triangle1.getPosition().y});
                 } else if(keyPressed->scancode == sf::Keyboard::Scancode::A) {
-                    Material::fringe0.setPosition({Material::fringe0.getPosition().x - (5000000.0f * Game::deltaTime), Material::fringe0.getPosition().y});
-                    Material::fringe1.setPosition({Material::fringe1.getPosition().x - (5000000.0f * Game::deltaTime), Material::fringe1.getPosition().y});
+                    Material::triangle0.setPosition({Material::triangle0.getPosition().x - (5000000.0f * Game::deltaTime), Material::triangle0.getPosition().y});
+                    Material::triangle1.setPosition({Material::triangle1.getPosition().x - (5000000.0f * Game::deltaTime), Material::triangle1.getPosition().y});
                 } else if(keyPressed->scancode == sf::Keyboard::Scancode::W) {
-                    Material::fringe0.setPosition({Material::fringe0.getPosition().x , Material::fringe0.getPosition().y - (5000000.0f * Game::deltaTime)});
-                    Material::fringe1.setPosition({Material::fringe1.getPosition().x , Material::fringe1.getPosition().y - (5000000.0f * Game::deltaTime)});
+                    Material::triangle0.setPosition({Material::triangle0.getPosition().x , Material::triangle0.getPosition().y - (5000000.0f * Game::deltaTime)});
+                    Material::triangle1.setPosition({Material::triangle1.getPosition().x , Material::triangle1.getPosition().y - (5000000.0f * Game::deltaTime)});
                 } else if(keyPressed->scancode == sf::Keyboard::Scancode::S) {
-                    Material::fringe0.setPosition({Material::fringe0.getPosition().x , Material::fringe0.getPosition().y + (5000000.0f * Game::deltaTime)});
-                    Material::fringe1.setPosition({Material::fringe1.getPosition().x , Material::fringe1.getPosition().y + (5000000.0f * Game::deltaTime)});
+                    Material::triangle0.setPosition({Material::triangle0.getPosition().x , Material::triangle0.getPosition().y + (5000000.0f * Game::deltaTime)});
+                    Material::triangle1.setPosition({Material::triangle1.getPosition().x , Material::triangle1.getPosition().y + (5000000.0f * Game::deltaTime)});
 
                 } else if (keyPressed->scancode == sf::Keyboard::Scancode::T){
-                    window.setSize({1920, 1080});
+                    Scene::setPossition(Material::triangle0, 0.f, 0.f, Material::triangle0.getScale().x + 0.1f);
+                    Scene::setPossition(Material::triangle1, 0.f, 0.f, Material::triangle0.getScale().x + 0.1f);
                 }
             }
         }
@@ -57,10 +72,10 @@ void Event::calculateFPS(sf::RenderWindow& window){
         std::ostringstream name2fps;
             name2fps << Game::FPS;
             std::string name(name2fps.str());
-        Material::text.setString("FPS: " + name + "\nPosX: " + std::to_string(Material::fringe0.getPosition().x) + "\nPosY: " + std::to_string(Material::fringe0.getPosition().y));
+        Material::text.setString("FPS: " + name + "\nPosX: " + std::to_string(Material::triangle0.getPosition().x) + "\nPosY: " + std::to_string(Material::triangle0.getPosition().y));
     }
 
 void Event::trigger0(sf::RenderWindow& window){
-    Material::fringe0.setPosition({100, 100});
-    Material::fringe1.setPosition({100, 100});
+    Material::triangle0.setPosition({100, 100});
+    Material::triangle1.setPosition({100, 100});
 }
