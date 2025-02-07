@@ -1,7 +1,7 @@
 #include "GameImgui.h"
 // #include "../game/scene/material.h"
 #include "../game/scene/v.h"
-// #include "../shaders/vertex.h"
+#include "../shaders/vertex.h"
 #include "../game/game.hpp"
 #include <stdexcept>
 #include <SFML/Graphics.hpp>
@@ -54,25 +54,16 @@ void GameImgui::showDebugMenu(){
 
 
     ImGui::Text("Background");
-    ImGui::Text("Vertex 0");
+    for (int i = 0; i < 3; i++){
+        ImGui::Text(("Vertex " + std::to_string(i)).c_str());
 
-    ImGui::SliderFloat("x##posvert0x", &Material::vert0x, -10.0f, 10.0f);
-    ImGui::SliderFloat("y##posvert0y", &Material::vert0y, -10.0f, 10.0f);
-    ImGui::SliderFloat("z##posvert0z", &Material::vert0z, -10.0f, 10.0f);
+        ImGui::SliderFloat(("x##posvertX" + std::to_string(i)).c_str(), &Vertex::triangle0.getVertexData(i).x, -10.0f, 10.0f);
+        ImGui::SliderFloat(("y##posvertY" + std::to_string(i)).c_str(), &Vertex::triangle0.getVertexData(i).y, -10.0f, 10.0f);
+        ImGui::SliderFloat(("z##posvertZ" + std::to_string(i)).c_str(), &Vertex::triangle0.getVertexData(i).z, -10.0f, 10.0f);
 
-    static float colVert0[3] = {Material::vert0R, Material::vert0G, Material::vert0B};
-    ImGui::ColorEdit3("Color##colvert0", colVert0);
-    Material::vert0R = colVert0[0]; Material::vert0G = colVert0[1]; Material::vert0B = colVert0[2];
-
-    ImGui::Text("Vertex 1");
-    
-    ImGui::SliderFloat("x##posvert1x", &Material::vert1x, -10.0f, 10.0f);
-    ImGui::SliderFloat("y##posvert1y", &Material::vert1y, -10.0f, 10.0f);
-    ImGui::SliderFloat("z##posvert1z", &Material::vert1z, -10.0f, 10.0f);
-
-    static float colVert1[3] = {Material::vert1R, Material::vert1G, Material::vert1B};
-    ImGui::ColorEdit3("Color##colvert1", colVert1);
-    Material::vert1R = colVert1[0]; Material::vert1G = colVert1[1]; Material::vert1B = colVert1[2];
-
+        static float colVert0[3] = {Material::vert0R, Material::vert0G, Material::vert0B};
+        ImGui::ColorEdit3(("Color##colvert" + std::to_string(i)).c_str(), colVert0);
+        Material::vert0R = colVert0[0]; Material::vert0G = colVert0[1]; Material::vert0B = colVert0[2];
+    }
     ImGui::End();
 }

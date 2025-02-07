@@ -12,7 +12,8 @@ struct Vertex {
 class Triangle{
     public: 
         Triangle(Vertex v0, Vertex v1, Vertex v2);
-        Vertex getVertex(int index) const;
+        Vertex& getVertexData(int index);
+        const Vertex& getVertexData(int index) const;
     private:
         Vertex vertex0, vertex1, vertex2;
 };
