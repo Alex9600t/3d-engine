@@ -8,6 +8,10 @@
 #include "scene/scene.h"
 #include "../engine/GameImgui.h"
 
+// std::vector<float> Game::fpsGraVal(100, 0.0f); 
+extern std::vector<float> Game::fpsGraVal(100, 0.0f);
+static int offset = 0;
+
 void Event::startEventKeyboard(sf::RenderWindow& window){
     while (const std::optional event = window.pollEvent())
         {
@@ -67,6 +71,8 @@ void Event::calculateFPS(sf::RenderWindow& window){
             window.setTitle("FPS: " + name);
             Game::clock.restart();
             Game::frameCount = 0;
+                Game::fpsGraVal[offset] = Game::FPS; 
+                offset = (offset + 1) % Game::fpsGraVal.size(); 
         }
 }
 

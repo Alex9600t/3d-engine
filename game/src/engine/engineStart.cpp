@@ -17,13 +17,13 @@
 int main(){
     sf::RenderWindow window(sf::VideoMode({720, 480}), "lox");
     try {GameImgui::imguiInit(window);} catch (const std::exception& e) {return -1;}
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    // glClearColor(0.0, 0.0, 0.0, 1.0);
     Scene::MaterialInit(window);
     Event::trigger0(window);
 
     while (window.isOpen()){
 
-
+        
         Event::startEventKeyboard(window);
         GameImgui::imguistart(window);
         Event::calculateFPS(window);

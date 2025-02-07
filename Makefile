@@ -6,6 +6,7 @@ LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lGL -lGLU -lglut -lX11
 TARGET = start
 SRC = game/src/engine/engineStart.cpp \
 	game/src/engine/GameImgui.cpp \
+	game/src/shaders/vertex.cpp \
 	game/src/game/game.cpp \
 	game/src/game/event.cpp \
 	game/src/game/render.cpp \

@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/OpenGL.hpp>
 #include "scene.h"
-#include "material.h"
+#include <iostream>
+#include "v.h"
 
     void Scene::changeTriangle(sf::ConvexShape &tringle, float t0x, float t0y, float t1x, float t1y, float t2x, float t2y){
         tringle.setPoint(0, {t0x, t0y});
@@ -19,7 +20,9 @@ void Scene::setMaterialPreset0(sf::ConvexShape &tringle){
 }
 
 void Scene::MaterialInit(sf::RenderWindow& window){
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+
+    // std::cout << Material::vert0.x << "\n";
+    // glClearColor(0.0, 0.0, 0.0, 1.0);
 
 
     Material::triangletest.setFillColor(sf::Color(255, 255, 255, 0));

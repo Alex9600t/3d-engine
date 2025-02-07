@@ -8,6 +8,7 @@ namespace Game {
     extern sf::Clock clockDelta;
     extern int frameCount;
     extern float deltaTime;
+    extern std::vector<float> fpsGraVal;
 }
 
 #endif
