@@ -136,7 +136,7 @@ void Render::update(sf::RenderWindow& window){
     
 
     drawCube();
-    Vertex::renderTriangle(Vertex::triangle0, 0);
+    // Vertex::renderTriangle(Vertex::triangle0, 0);
 
     angle += 0.005f;
     
