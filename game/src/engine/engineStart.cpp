@@ -15,10 +15,8 @@
 
 
 int main(){
-    sf::RenderWindow window(sf::VideoMode({1080, 1080}), "lox");
+    sf::RenderWindow window(sf::VideoMode({1920, 1080}), "lox");
     try {GameImgui::imguiInit(window);} catch (const std::exception& e) {return -1;}
-    // glEnable(GL_DEPTH_TEST);
-    // glClearColor(0.0, 0.0, 0.0, 1.0);
     Scene::MaterialInit(window);
     Event::trigger0(window);
 

@@ -14,6 +14,7 @@ namespace Render {
     float near_val = 0.1;
     float far_val = 100.0;
     float FOV = 90.0f;
+    float aspect;
 
     static OpenGLCamera camera;
 
@@ -44,6 +45,16 @@ namespace Render {
     }
 
 
+    float& getGLUTCameraData(int index){
+        switch (index){
+            case 0: return aspect;
+            case 1: return near_val;
+            case 2: return far_val;
+            default: throw std::out_of_range("Invalid camera parameter index");
+        }
+    }
+
+
     bool& getCameraDataBool(int index){
         switch (index){
             case 0: return OpenGLCamIsUseDefaultSettings;
@@ -59,8 +70,15 @@ namespace Render {
     }
     };
 
+    struct renderOptional {
+        int selectedRenderType = 0;
+        static renderOptional renderOpt;
+    };
+
     void OpenGLCamSetDefaultSettings(sf::RenderWindow& window, int index);
     void OpenGLCamDefaultRenderSettings(sf::RenderWindow& window);
+    void GLUTOpenGLCamSetDefaultSettings(sf::RenderWindow& window, int index);
+    void GLUTOpenGLCamDefaultRenderSettings(sf::RenderWindow& window);
 
     // void updateCamera(double left, double right, double bottom, double top, double near_val, double far_val, int i /*0 - all, 1 - left, 2 - right, 3 - bottom, 4 - top, 5 - near_val, 6 - far_val*/);
     // void getCameraSettings(int i);

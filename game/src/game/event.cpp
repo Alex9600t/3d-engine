@@ -75,6 +75,7 @@ void Event::calculateFPS(sf::RenderWindow& window){
     }
 
 void Event::trigger0(sf::RenderWindow& window){
+    Render::OpenGLCamera::camera.aspect = (float) window.getSize().x / (float) window.getSize().y;
     Material::triangle0.setPosition({100, 100});
     Material::triangle1.setPosition({100, 100});
 }

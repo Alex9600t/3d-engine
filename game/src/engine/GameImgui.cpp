@@ -10,7 +10,11 @@
 
 static int offset = 0;
 static std::vector<float> MsGraVal(100, 0.0f); 
+
+const char* RenderTypesText[] = {"OpenGL(GLUT)", "OpenGL",  "Vulkan"};
 const char* OpenGLCamText[] = {"left", "right", "bottom", "top", "near_val", "far_val"};
+const char* GLUTOpenGLCamText[] = {"aspect", "zNear", "zFar"};
+const char* GLUTOpenGLCamTextIsNewOptText[] = {"window.x / window.h", "Min distance from the camera to the object (Cannot be < 0)", "Max distance from the camera to the object (Cannot be < zNear)"};
 bool OpenGLCamTextIsNewOptBool[] = {true, true, true, true, false, false};
 const char* OpenGLCamTextIsNewOptText[] = {"-((0.1f * tan(FOV * M_PI / 360.0f)) * (float)window.getSize().x / (float)window.getSize().y)", "(0.1f * tan(FOV * M_PI / 360.0f)) * (float)window.getSize().x / (float)window.getSize().y", "0.1f * tanf(FOV * M_PI / 360.0f)", "-(0.1f * tanf(FOV * M_PI / 360.0f))", "far_val"};
 
@@ -93,24 +97,42 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
         ImGui::SliderFloat("Field of view", &Render::OpenGLCamera::camera.FOV, 45.0f, 180.0f);
         ImGui::Separator();
         ImGui::Checkbox("Use default camera settings", &Render::OpenGLCamera::camera.getCameraDataBool(0));
+        if (Render::renderOptional::renderOpt.selectedRenderType != 0){
+        ImGui::Text("Debug: These are the settings for the older version of rendering. New version in development");
+        ImGui::Text("Debug: Trying to change anything here will get you nowhere");
+        }
+        ImGui::Combo("Select Render utils", &Render::renderOptional::renderOpt.selectedRenderType, RenderTypesText, IM_ARRAYSIZE(RenderTypesText));
         ImGui::Separator();
-        float temp[6]; 
-        for (int i = 0; i < 6; i++){
-            imDis(Render::OpenGLCamera::camera.getCameraDataBool(0));
-            if (OpenGLCamTextIsNewOptBool[i]){
-                if (ImGui::Button((std::string("Set default (") + std::string(OpenGLCamText[i]) + ")").c_str())){
-                    Render::OpenGLCamSetDefaultSettings(window, i);
-                }
-                ImGui::Text((std::string("'") + std::string(OpenGLCamText[i]) + "' ( " + std::string(OpenGLCamTextIsNewOptText[i]) + " )").c_str());
+        if (Render::renderOptional::renderOpt.selectedRenderType == 0){
+            for (int i = 0; i < 3; i++){
+                imDis(Render::OpenGLCamera::camera.getCameraDataBool(0));
+                    if (ImGui::Button((std::string("Set default (") + std::string(GLUTOpenGLCamText[i]) + ")").c_str())){
+                        Render::GLUTOpenGLCamSetDefaultSettings(window, i);
+                    }
+                    ImGui::Text(GLUTOpenGLCamTextIsNewOptText[i]);
+                    ImGui::SliderFloat(OpenGLCamText[i], &Render::OpenGLCamera::camera.getGLUTCameraData(i), -10.0f, 200.0f);
+                    ImGui::Text(GLUTOpenGLCamText[i]);
+                imDisRes(Render::OpenGLCamera::camera.getCameraDataBool(0));
             }
-            temp[i] = (Render::OpenGLCamera::camera.getCameraData(i));
-            ImGui::SliderFloat(OpenGLCamText[i], &temp[i], -200.0f, 200.0f);
-            Render::OpenGLCamera::camera.getCameraData(i) = temp[i];
-            ImGui::Separator();
-            // if (Render::OpenGLCamera::camera.getCameraDataBool(0)){
-
+        } else if (Render::renderOptional::renderOpt.selectedRenderType == 1){
+            ImGui::Text("WARNING: The selected render type is not supported by the engine/not made!\nI do not recommend to set this type of renderer");
+            float temp[5]; 
+            for (int i = 0; i < 6; i++){
+                imDis(Render::OpenGLCamera::camera.getCameraDataBool(0));
+                if (OpenGLCamTextIsNewOptBool[i]){
+                    if (ImGui::Button((std::string("Set default (") + std::string(OpenGLCamText[i]) + ")").c_str())){
+                        Render::OpenGLCamSetDefaultSettings(window, i);
+                    }
+                    ImGui::Text((std::string("'") + std::string(OpenGLCamText[i]) + "' ( " + std::string(OpenGLCamTextIsNewOptText[i]) + " )").c_str());
+                }
+                temp[i] = (Render::OpenGLCamera::camera.getCameraData(i));
+                ImGui::SliderFloat(OpenGLCamText[i], &temp[i], -200.0f, 200.0f);
+                Render::OpenGLCamera::camera.getCameraData(i) = temp[i];
+                ImGui::Separator();
                     imDisRes(Render::OpenGLCamera::camera.getCameraDataBool(0));
-            // }
+            }
+        } else if (Render::renderOptional::renderOpt.selectedRenderType == 2){
+            ImGui::Text("WARNING: The selected render type is not supported by the engine/not made!\nI do not recommend to set this type of renderer");
         }
     }
 
