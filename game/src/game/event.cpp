@@ -3,10 +3,15 @@
 #include <optional>
 #include "event.h"
 #include "game.hpp"
+#include "render.h"
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include "scene/material.h"
 #include "scene/scene.h"
 #include "../engine/GameImgui.h"
+#include <glut/include/GL/glut.h>
+#include "../shaders/vertex.h"
 
 // std::vector<float> Game::fpsGraVal(100, 0.0f); 
 extern std::vector<float> Game::fpsGraVal(100, 0.0f);
@@ -19,21 +24,9 @@ void Event::startEventKeyboard(sf::RenderWindow& window){
             if (event->is<sf::Event::Closed>())
             {
                 window.close();
-            } else if (event->is<sf::Event::Resized>()){
-                // window.setSize({window.getView().getSize().x, window.getView().getSize().y});
-            // } else if(const auto *MouseMoved = event->getIf<sf::Event::MouseMoved>()){
-            //     sf::Mouse::setPosition({10, 10}, window);
-            //     // std::cout << "x: " << sf::Mouse::getPosition().x << " y: " << sf::Mouse::getPosition().x << "\n";
-
-
-            //     if (sf::Mouse::getPosition().x && sf::Mouse::getPosition().x > 930){
-
-            //     // std::cout << "x: " << sf::Mouse::getPosition().x << "\n";
-            //        std::cout << "Мышка вправо \n"; 
-            //     // sf::Mouse::setPosition({10, 10}, window);
-            //     } else if (sf::Mouse::getPosition().x && sf::Mouse::getPosition().x < 930){
-            //        std::cout << "Мышка влево \n"; 
-            //     }
+            } else if (const auto* resized = event->getIf<sf::Event::Resized>()){
+                window.setSize({resized->size.x , resized->size.y});
+                glViewport(0, 0, resized->size.x, resized->size.y);
             }else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
             {
                 if (keyPressed->scancode == sf::Keyboard::Scancode::Escape){
@@ -52,8 +45,6 @@ void Event::startEventKeyboard(sf::RenderWindow& window){
                     Material::triangle1.setPosition({Material::triangle1.getPosition().x , Material::triangle1.getPosition().y + (5000000.0f * Game::deltaTime)});
 
                 } else if (keyPressed->scancode == sf::Keyboard::Scancode::T){
-                    Scene::setPossition(Material::triangle0, 0.f, 0.f, Material::triangle0.getScale().x + 0.1f);
-                    Scene::setPossition(Material::triangle1, 0.f, 0.f, Material::triangle0.getScale().x + 0.1f);
                 }
             }
         }

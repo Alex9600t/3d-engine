@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/OpenGL.hpp>
+#include <glut/include/GL/glut.h>
 #include "scene.h"
 #include <iostream>
 #include "v.h"

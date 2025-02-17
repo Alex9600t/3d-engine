@@ -10,13 +10,14 @@
 #include "../game/scene/scene.h"
 #include "../game/scene/material.h"
 #include "GameImgui.h"
-#include <SFML/OpenGL.hpp>
+#include <glut/include/GL/glut.h>
 #include <stdexcept>
 
 
 int main(){
-    sf::RenderWindow window(sf::VideoMode({720, 480}), "lox");
+    sf::RenderWindow window(sf::VideoMode({1080, 1080}), "lox");
     try {GameImgui::imguiInit(window);} catch (const std::exception& e) {return -1;}
+    // glEnable(GL_DEPTH_TEST);
     // glClearColor(0.0, 0.0, 0.0, 1.0);
     Scene::MaterialInit(window);
     Event::trigger0(window);

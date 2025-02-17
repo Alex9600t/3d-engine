@@ -10,5 +10,5 @@ namespace GameImgui {
     void imguistart(sf::RenderWindow& window);
     void shutdown();
     void imguiRender(sf::RenderWindow& window);
-    void showDebugMenu();
+    void showDebugMenu(sf::RenderWindow& window);
 }

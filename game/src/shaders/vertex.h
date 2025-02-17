@@ -19,10 +19,12 @@ class Triangle{
         Vertex vertex0, vertex1, vertex2;
 };
 
-void renderTriangle(const Triangle& triangle);
+void renderTriangle(const Triangle& triangle, int drawDebug /*0 - No, 1 - debug color, 2 - lines */);
 
-inline Triangle triangle0(Vertex(-0.5, -0.5, 0, 1.f, 0.f, 0.f), Vertex(-0.5, 0.5, 0, 0.f, 1, 0.f), Vertex(0.25, 0.5, 0, 0.f, 0.f, 1));
-inline Triangle triangle1(Vertex(-0.5, -0.5, 0, 1.f, 0.f, 0.f), Vertex(0, 0.5, 0, 0.f, 1, 0.f), Vertex(0.5, -0.5, 0, 0.f, 0.f, 1));
+inline Triangle triangle0(Vertex(-0.5, -0.5, 0, 1, 0, 0), Vertex(-0.5, 0.5, 0, 0.f, 1, 0.f), Vertex(0.2, 0.5, 0, 0.f, 0.f, 1));
+inline Triangle triangle1(Vertex(-0.5, -0.5, 0, 1, 0.f, 0.f), Vertex(0.2, 0.5, 0, 0.f, 1, 0.f), Vertex(0.2, -0.5, 0, 0.f, 0.f, 1));
+inline Triangle triangle2(Vertex(-0.5, -0.5, -0.5, 1, 0, 0), Vertex(-0.5, 0.5, -0.5, 0.f, 1, 0.f), Vertex(0.2, 0.5, -0.5, 0.f, 0.f, 1));
+inline Triangle triangle3(Vertex(-0.5, -0.5, -0.5, 1, 0.f, 0.f), Vertex(0.2, 0.5, -0.5, 0.f, 1, 0.f), Vertex(0.2, -0.5, -0.5, 0.f, 0.f, 1));
 
 }
 

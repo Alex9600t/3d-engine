@@ -21,6 +21,7 @@
 
 ## Запуск
 1. Установите SFML3.
+1. Установите GLUT.
 2. Скопируйте репозиторий:
 ```sh
 git clone https://github.com/Alex9600t/3d-engine

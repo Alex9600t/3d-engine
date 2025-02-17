@@ -16,11 +16,11 @@ SRC = game/src/engine/engineStart.cpp \
 	imgui/imgui_tables.cpp \
 	imgui/imgui_widgets.cpp \
 	imgui/imgui-SFML.cpp \
-	imgui/imgui.cpp \
-	imgui/imgui_demo.cpp
+	imgui/imgui.cpp
 OBJ = $(SRC:.cpp=.o)
 
 all: $(TARGET)
+	rm -f game/src/shaders/vertex.o game/src/game/render.o
 	./$(TARGET)
 
 $(TARGET): $(OBJ)
@@ -31,3 +31,7 @@ $(TARGET): $(OBJ)
 
 clean:
 	rm -f $(OBJ) $(TARGET)
+
+r: $(TARGET)
+	rm -f $(OBJ)
+	./$(TARGET)
