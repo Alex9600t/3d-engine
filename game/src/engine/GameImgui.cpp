@@ -96,6 +96,9 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
         ImGui::Text("FOV");
         ImGui::SliderFloat("Field of view", &Render::OpenGLCamera::camera.FOV, 45.0f, 180.0f);
         ImGui::Separator();
+        bool lool = false;
+        ImGui::Checkbox("DLSS (Delivers Lag, Stutters, and Smearing)", &lool);
+        ImGui::Separator();
         ImGui::Checkbox("Use default camera settings", &Render::OpenGLCamera::camera.getCameraDataBool(0));
         if (Render::renderOptional::renderOpt.selectedRenderType != 0){
         ImGui::Text("Debug: These are the settings for the older version of rendering. New version in development");
@@ -110,8 +113,8 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
                         Render::GLUTOpenGLCamSetDefaultSettings(window, i);
                     }
                     ImGui::Text(GLUTOpenGLCamTextIsNewOptText[i]);
-                    ImGui::SliderFloat(OpenGLCamText[i], &Render::OpenGLCamera::camera.getGLUTCameraData(i), -10.0f, 200.0f);
-                    ImGui::Text(GLUTOpenGLCamText[i]);
+                    ImGui::SliderFloat(GLUTOpenGLCamText[i], &Render::OpenGLCamera::camera.getGLUTCameraData(i), -10.0f, 200.0f);
+                    ImGui::Separator();
                 imDisRes(Render::OpenGLCamera::camera.getCameraDataBool(0));
             }
         } else if (Render::renderOptional::renderOpt.selectedRenderType == 1){

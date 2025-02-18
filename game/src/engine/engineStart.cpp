@@ -13,9 +13,11 @@
 #include <glut/include/GL/glut.h>
 #include <stdexcept>
 
-
-int main(){
-    sf::RenderWindow window(sf::VideoMode({1920, 1080}), "lox");
+int main(int argc, char** argv) {
+    glutInit(&argc, argv);
+    sf::ContextSettings settings;
+    settings.depthBits = 24;
+    sf::RenderWindow window(sf::VideoMode({1920, 1080}), "lox", sf::State::Windowed, settings);
     try {GameImgui::imguiInit(window);} catch (const std::exception& e) {return -1;}
     Scene::MaterialInit(window);
     Event::trigger0(window);

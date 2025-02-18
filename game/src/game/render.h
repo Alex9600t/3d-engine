@@ -75,14 +75,14 @@ namespace Render {
         static renderOptional renderOpt;
     };
 
+    extern float angle;
+
     void OpenGLCamSetDefaultSettings(sf::RenderWindow& window, int index);
     void OpenGLCamDefaultRenderSettings(sf::RenderWindow& window);
     void GLUTOpenGLCamSetDefaultSettings(sf::RenderWindow& window, int index);
     void GLUTOpenGLCamDefaultRenderSettings(sf::RenderWindow& window);
-
     // void updateCamera(double left, double right, double bottom, double top, double near_val, double far_val, int i /*0 - all, 1 - left, 2 - right, 3 - bottom, 4 - top, 5 - near_val, 6 - far_val*/);
     // void getCameraSettings(int i);
-
 
     void update(sf::RenderWindow& window);
     // float vert0y;

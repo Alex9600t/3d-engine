@@ -16,6 +16,7 @@
 // std::vector<float> Game::fpsGraVal(100, 0.0f); 
 extern std::vector<float> Game::fpsGraVal(100, 0.0f);
 static int offset = 0;
+Event::UseMouse Event::UseMouse::cubeMouse;
 
 void Event::startEventKeyboard(sf::RenderWindow& window){
     while (const std::optional event = window.pollEvent())
@@ -43,9 +44,25 @@ void Event::startEventKeyboard(sf::RenderWindow& window){
                 } else if(keyPressed->scancode == sf::Keyboard::Scancode::S) {
                     Material::triangle0.setPosition({Material::triangle0.getPosition().x , Material::triangle0.getPosition().y + (5000000.0f * Game::deltaTime)});
                     Material::triangle1.setPosition({Material::triangle1.getPosition().x , Material::triangle1.getPosition().y + (5000000.0f * Game::deltaTime)});
-
                 } else if (keyPressed->scancode == sf::Keyboard::Scancode::T){
+                    // Render::angle += 5.0f;
                 }
+            } 
+            else if (const auto *mouse = event->getIf<sf::Event::MouseMoved>()){
+                if (mouse->position.x > Event::UseMouse::cubeMouse.x){
+                    Event::UseMouse::cubeMouse.xx += 0.5f;
+                } else if (mouse->position.x < Event::UseMouse::cubeMouse.x){
+                    Event::UseMouse::cubeMouse.xx -= 0.5f;
+
+                }
+                if (mouse->position.y > Event::UseMouse::cubeMouse.y){
+                    Event::UseMouse::cubeMouse.yy += 0.5f;
+                } else if (mouse->position.y < Event::UseMouse::cubeMouse.y){
+                    Event::UseMouse::cubeMouse.yy -= 0.5f;
+                }
+                Event::UseMouse::cubeMouse.x = mouse->position.x;
+                Event::UseMouse::cubeMouse.y = mouse->position.y;
+
             }
         }
 }

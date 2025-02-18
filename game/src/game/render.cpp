@@ -1,12 +1,14 @@
 #include <SFML/Graphics.hpp>
 #include "render.h"
 #include "scene/v.h"
+#include "event.h"
 #include "../shaders/vertex.h"
 #include <glut/include/GL/glut.h>
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <cmath>
+
 
 
 
@@ -20,6 +22,8 @@
     // float Render::vert2z;
     Render::OpenGLCamera Render::OpenGLCamera::camera;
     Render::renderOptional Render::renderOptional::renderOpt;
+
+float Render::angle = 0.0f;
 
 // OpenGL
 
@@ -64,63 +68,94 @@ void Render::GLUTOpenGLCamDefaultRenderSettings(sf::RenderWindow& window){
     }
 }
 
-
 void drawCube() {
     glBegin(GL_QUADS);
 
     // U
-    glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
+    // glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
+    glTexCoord2f(0.20f, 0.05f);
     glVertex3f(-0.5f,  0.5f, -0.5f);
+    glTexCoord2f(0.25f, 0.05f);
     glVertex3f( 0.5f,  0.5f, -0.5f);
+    glTexCoord2f(0.25f, 0.0f);
     glVertex3f( 0.5f,  0.5f,  0.5f);
+    glTexCoord2f(0.20f, 0.0f);
     glVertex3f(-0.5f,  0.5f,  0.5f);
 
     // D
-    glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
+    // glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
+    glTexCoord2f(0.10f, 0.05f);
     glVertex3f(-0.5f, -0.5f, -0.5f);
+    glTexCoord2f(0.15f, 0.05f);
     glVertex3f( 0.5f, -0.5f, -0.5f);
+    glTexCoord2f(0.15f, 0.0f);
     glVertex3f( 0.5f, -0.5f,  0.5f);
+    glTexCoord2f(0.10f, 0.0f);
     glVertex3f(-0.5f, -0.5f,  0.5f);
 
     // F
-    glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+    // glColor4f(0.1f, 0.1f, 0.1f, 0.5f);
+    glTexCoord2f(0.15f, 0.05f);
     glVertex3f(-0.5f, -0.5f,  0.5f);
+    glTexCoord2f(0.20f, 0.05f);
     glVertex3f( 0.5f, -0.5f,  0.5f);
+    glTexCoord2f(0.20f, 0.0f);
     glVertex3f( 0.5f,  0.5f,  0.5f);
+    glTexCoord2f(0.15f, 0.0f);
     glVertex3f(-0.5f,  0.5f,  0.5f);
 
     // B
-    glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
+    // glColor4f(1.0f, 0.0f, 0.0f, 0.5f);
+    glTexCoord2f(0.15f, 0.05f);
     glVertex3f(-0.5f, -0.5f, -0.5f);
+    glTexCoord2f(0.20f, 0.05f);
     glVertex3f( 0.5f, -0.5f, -0.5f);
+    glTexCoord2f(0.20f, 0.0f);
     glVertex3f( 0.5f,  0.5f, -0.5f);
+    glTexCoord2f(0.15f, 0.0f);
     glVertex3f(-0.5f,  0.5f, -0.5f);
 
     // L
-    glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
+    // glColor4f(0.0f, 1.0f, 0.0f, 0.5f);
+    glTexCoord2f(0.15f, 0.05f);
     glVertex3f(-0.5f, -0.5f, -0.5f);
+    glTexCoord2f(0.20f, 0.05f);
     glVertex3f(-0.5f, -0.5f,  0.5f);
+    glTexCoord2f(0.20f, 0.0f);
     glVertex3f(-0.5f,  0.5f,  0.5f);
+    glTexCoord2f(0.15f, 0.0f);
     glVertex3f(-0.5f,  0.5f, -0.5f);
 
     // R
-    glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+    // glColor4f(0.0f, 0.0f, 1.0f, 0.5f);
+    glTexCoord2f(0.15f, 0.05f);
     glVertex3f(0.5f, -0.5f, -0.5f);
+    glTexCoord2f(0.20f, 0.05f);
     glVertex3f(0.5f, -0.5f,  0.5f);
+    glTexCoord2f(0.20f, 0.0f);
     glVertex3f(0.5f,  0.5f,  0.5f);
+    glTexCoord2f(0.15f, 0.0f);
     glVertex3f(0.5f,  0.5f, -0.5f);
 
     glEnd();
 }
 
 
+
 void Render::update(sf::RenderWindow& window){
+    sf::Texture texture;
+        if (!texture.loadFromFile("game/resurces/textures/texLib.png")){
+            
+        }
+    sf::Texture::bind(&texture);
     static float angle = 0.0f;
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glDisable(GL_CULL_FACE);
+    // glEnable(GL_CULL_FACE);
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
+    // glDepthFunc(GL_LEQUAL);
     glShadeModel(GL_SMOOTH);
 
     glMatrixMode(GL_PROJECTION);
@@ -128,20 +163,18 @@ void Render::update(sf::RenderWindow& window){
     Render::GLUTOpenGLCamDefaultRenderSettings(window);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
     
     glTranslatef(0.0f, 0.0f, -5.0f);
-    glRotatef(angle, 1.0f, 0.0f, 0.0f);
-    glRotatef(angle, 0.0f, 1.0f, 0.0f);
-    glRotatef(angle, 0.0f, 0.0f, 1.0f);
-    
-
+    glRotatef(Event::UseMouse::cubeMouse.xx, 0.0f, 1.0f, 0.0f);
+    glRotatef(Event::UseMouse::cubeMouse.yy, 1.0f, 0.0f, 0.0f);
     drawCube();
-    // Vertex::renderTriangle(Vertex::triangle0, 0);
+    // Render::angle += 0.05f;
 
-    angle += 0.005f;
-    
-    // Vertex::renderTriangle(Vertex::triangle1, true);
-    // Vertex::renderTriangle(Vertex::triangle2, false);
-    // Vertex::renderTriangle(Vertex::triangle3, false);
+    if (Render::angle >= 360.0f){
+        Render::angle = -360.0f;
+    } else if (Render::angle <= -360.0f){
+        Render::angle = 360.0f;
+    }
     glEnd();
 }
