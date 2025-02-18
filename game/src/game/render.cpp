@@ -144,7 +144,7 @@ void drawCube() {
 
 void Render::update(sf::RenderWindow& window){
     sf::Texture texture;
-        if (!texture.loadFromFile("game/resurces/textures/texLib.png")){
+        if (!texture.loadFromFile("game/resources/textures/texLib.png")){
             
         }
     sf::Texture::bind(&texture);
