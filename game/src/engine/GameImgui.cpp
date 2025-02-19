@@ -77,6 +77,9 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
     if (ImGui::CollapsingHeader("Info")) {
     ImGui::Text(fps);
     ImGui::PlotLines("FPS##GraVis", Game::fpsGraVal.data(), Game::fpsGraVal.size());
+    ImGui::Text(("FPS max: " + std::to_string(Game::FPS_max.value_or(0.0f))).c_str());
+    ImGui::Text(("FPS low: " + std::to_string(Game::FPS_low.value_or(0.0f))).c_str());
+
 
     ImGui::Text(Ms);
     ImGui::PlotLines("Ms##GraVis", MsGraVal.data(), MsGraVal.size());

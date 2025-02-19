@@ -4,6 +4,8 @@
 
 namespace Game {
     extern float FPS;
+    extern std::optional<float> FPS_low;
+    extern std::optional<float> FPS_max;
     extern sf::Clock clock;
     extern sf::Clock clockDelta;
     extern int frameCount;

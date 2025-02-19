@@ -81,6 +81,15 @@ void Event::calculateFPS(sf::RenderWindow& window){
             Game::frameCount = 0;
                 Game::fpsGraVal[offset] = Game::FPS; 
                 offset = (offset + 1) % Game::fpsGraVal.size(); 
+            if (!Game::FPS_low.has_value() && !Game::FPS_max.has_value()){
+                Game::FPS_low = Game::FPS;
+                Game::FPS_max = Game::FPS;
+            }
+            if (Game::FPS_low.has_value() && Game::FPS_low.value() >= Game::FPS){
+                Game::FPS_low = Game::FPS;
+            } else if (Game::FPS_max.has_value() && Game::FPS_max.value() <= Game::FPS){
+                Game::FPS_max = Game::FPS;
+            }
         }
 }
 

@@ -85,6 +85,7 @@ namespace Render {
     // void getCameraSettings(int i);
 
     void update(sf::RenderWindow& window);
+    void renderInit();
     // float vert0y;
     // float vert0z;
     // float vert1x;

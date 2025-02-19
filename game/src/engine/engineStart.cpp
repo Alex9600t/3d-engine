@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
     try {GameImgui::imguiInit(window);} catch (const std::exception& e) {return -1;}
     Scene::MaterialInit(window);
     Event::trigger0(window);
+    Render::renderInit();
 
     while (window.isOpen()){
 

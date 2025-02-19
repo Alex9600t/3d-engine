@@ -68,6 +68,14 @@ void Render::GLUTOpenGLCamDefaultRenderSettings(sf::RenderWindow& window){
     }
 }
 
+    sf::Texture texture;
+void Render::renderInit(){
+    if (!texture.loadFromFile("game/resources/textures/texLib.png")){
+            
+        }
+    static float angle = 0.0f;
+}
+
 void drawCube() {
     glBegin(GL_QUADS);
 
@@ -136,19 +144,12 @@ void drawCube() {
     glVertex3f(0.5f,  0.5f,  0.5f);
     glTexCoord2f(0.15f, 0.0f);
     glVertex3f(0.5f,  0.5f, -0.5f);
-
-    glEnd();
 }
 
 
 
 void Render::update(sf::RenderWindow& window){
-    sf::Texture texture;
-        if (!texture.loadFromFile("game/resources/textures/texLib.png")){
-            
-        }
     sf::Texture::bind(&texture);
-    static float angle = 0.0f;
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glDisable(GL_CULL_FACE);
