@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include <glut/include/GL/glut.h>
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GL/glut.h>
 #include "scene.h"
 #include <iostream>
 #include "v.h"

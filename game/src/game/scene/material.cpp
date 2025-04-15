@@ -30,4 +30,66 @@ namespace Material {
 // void Material::vertexInit(){
 //     Material::vertexTriangle vert0;
 //     vert0 = {-0.5, -0.5, 0.0, 1.0, 0.0, 0.0};
+
+
+
+
+
+float getTexCoordByType(std::string type, int index) {
+    switch (index) {
+    case 0:
+        if (type == "block.dirt") {return 0.025f;} else
+        if (type == "block.grass_block") {return 0.075f;} else
+        if (type == "block.iron_ore") {return 0.1f;} else
+        if (type == "block.stone") {return 0.125f;} else
+        if (type == "block.leaves") {return 0.15f;} else
+        if (type == "block.log") {return 0.20f;}
+        if (type == "block.water") {return 0.25f;}
+        break;
+    case 1:
+        if (type == "block.dirt") {return 0.025f;} else
+        if (type == "block.grass_block") {return 0.025f;} else
+        if (type == "block.iron_ore") {return 0.1f;} else
+        if (type == "block.stone") {return 0.125f;} else
+        if (type == "block.leaves") {return 0.15f;}
+        if (type == "block.log") {return 0.20f;}
+        break;
+    case 2:
+        if (type == "block.dirt") {return 0.025f;} else
+        if (type == "block.grass_block") {return 0.05f;} else
+        if (type == "block.iron_ore") {return 0.1f;} else
+        if (type == "block.stone") {return 0.125f;} else
+        if (type == "block.leaves") {return 0.15f;} else
+        if (type == "block.log") {return 0.175f;}
+        break;
+    case 3:
+        if (type == "block.dirt") {return 0.025f;} else
+        if (type == "block.grass_block") {return 0.05f;} else
+        if (type == "block.iron_ore") {return 0.1f;} else
+        if (type == "block.stone") {return 0.125f;} else
+        if (type == "block.leaves") {return 0.15f;} else
+        if (type == "block.log") {return 0.175f;}
+        break;
+    case 4:
+        if (type == "block.dirt") {return 0.025f;} else
+        if (type == "block.grass_block") {return 0.05f;} else
+        if (type == "block.iron_ore") {return 0.1f;} else
+        if (type == "block.stone") {return 0.125f;} else
+        if (type == "block.leaves") {return 0.15f;} else
+        if (type == "block.log") {return 0.175f;}
+        break;
+    case 5:
+        if (type == "block.dirt") {return 0.025f;} else
+        if (type == "block.grass_block") {return 0.05f;}
+        if (type == "block.iron_ore") {return 0.1f;} else
+        if (type == "block.stone") {return 0.125f;} else
+        if (type == "block.leaves") {return 0.15f;}
+        if (type == "block.log") {return 0.175f;}
+        break;
+    
+    default:
+    break;
+}
+return -0.025f;
+}
 }

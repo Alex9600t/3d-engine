@@ -1,6 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <glut/include/GL/glut.h>
+#include "game.hpp"
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GL/glut.h>
+#include <math.h>
+#include "physics.h"
 
 
 
@@ -69,6 +74,17 @@ namespace Render {
         }
     }
     };
+    struct Camera {
+        float mx = Game::w / 2;
+        float my = Game::h / 2;
+        sf::Vector3f pos = sf::Vector3f(0.0f, 0.0f, 0.0f);
+        sf::Vector3f velocity = sf::Vector3f(0.0f, 5.0f, 0.0f);
+        bool isJumping = false;
+        bool isFlying = false;
+        float speed = 0;
+        float angle = -mx / 180 * M_PI;
+        static Camera camera;
+    };
 
     struct renderOptional {
         int selectedRenderType = 0;
@@ -86,12 +102,29 @@ namespace Render {
 
     void update(sf::RenderWindow& window);
     void renderInit();
-    // float vert0y;
-    // float vert0z;
-    // float vert1x;
-    // float vert1y;
-    // float vert1z;
-    // float vert2x;
-    // float vert2y;
-    // float vert2z;
+    void drawCube(float x, float y, float z, bool rU, bool rD, bool rF, bool rB, bool rL, bool rR, float texU, float texD, float texF, float texB, float texL, float texR);
+    void drawSkybox(float x, float y, float z, int id);
+    void RenderMapFunc();
+
+
+
+    struct BlockData {
+        float x, y, z;
+        // sf::Vector3f position;
+        bool faces[6];
+        float texCoords[6];
+    };
+    void renderMapUpdate();
+    extern std::vector<BlockData> blockList;
+    
+    extern bool isUseVBO; 
+
+    void rebuildBuffer();
+
+    extern float tmpbool;
+    extern GLuint vbo, vao;
+    extern float renderVertices[];
+    extern bool debugView;
+
+    extern std::vector<sf::Vector3f> LUALines;
 }

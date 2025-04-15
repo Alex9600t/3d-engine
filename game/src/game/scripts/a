@@ -1,0 +1,62 @@
+local keyframes = {
+    {x=2.196, y=90.0, z=12.362, mx=18.0, my=-35.0},
+    {x=21.269, y=90.0, z=8.151, mx=74.0, my=-50.0},
+    {x=4.867, y=75.0, z=-16.544, mx=173.0, my=-60.0},
+    {x=-9.573, y=69.0, z=-8.494, mx=238.0, my=-81.0},
+    {x=-4.687, y=69.0, z=-3.296, mx=262.0, my=-63.0},
+    {x=0.201, y=69.0, z=-2.325, mx=256.0, my=0.0},
+    {x=2.262, y=63.0, z=2.923, mx=46.0, my=-116.0},
+    {x=10.465, y=63.0, z=9.606, mx=54.0, my=-52.0},
+    {x=16.128, y=63.0, z=13.720, mx=57.0, my=-156.0}
+}
+
+Game.Render.drawLine(keyframes[1].x, keyframes[1].y, keyframes[1].z, keyframes[2].x, keyframes[2].y, keyframes[2].z, 1, 0, 0)
+
+for i = 1, #keyframes, 1 do
+    if not(i == #keyframes) then
+        Game.Render.drawLine(keyframes[i].x, keyframes[i].y, keyframes[i].z, keyframes[i + 1].x, keyframes[i + 1].y, keyframes[i + 1].z, 1, 0, 0)
+    end
+end
+
+local function lerp(a, b, t)
+    return a + (b - a) * t
+end
+
+local function ease(t)
+    return t * t * t * (t * (6 * t - 15) + 10)
+end
+
+local function interpolate(a, b, t)
+    t = ease(t)
+    return {
+        x = lerp(a.x, b.x, t),
+        y = lerp(a.y, b.y, t),
+        z = lerp(a.z, b.z, t),
+        mx = lerp(a.mx, b.mx, t),
+        my = lerp(a.my, b.my, t)
+    }
+end
+
+local duration_per_segment = 1.0
+local step_time = 0.01
+
+for i = 1, #keyframes - 1 do
+    local a = keyframes[i]
+    local b = keyframes[i + 1]
+    local t = 0
+    while t < 1 do
+        local current = interpolate(a, b, t)
+        print(string.format("x=%.3f, y=%.3f, z=%.3f, mx=%.1f, my=%.1f",
+            current.x, current.y, current.z, current.mx, current.my))
+        Game.Player.teleport(current.x, current.y, current.z, current.mx, current.my)
+        
+        os.execute("sleep " .. tostring(step_time))
+        t = t + step_time / duration_per_segment
+    end
+end
+Game.Render.clearBufferLines()
+
+local final = keyframes[#keyframes]
+print(string.format("x=%.3f, y=%.3f, z=%.3f, mx=%.1f, my=%.1f",
+    final.x, final.y, final.z, final.mx, final.my))
+Game.Player.teleport(current.x, current.y, current.z, current.mx, current.my)

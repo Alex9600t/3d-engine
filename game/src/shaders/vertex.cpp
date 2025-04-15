@@ -1,6 +1,8 @@
 #include "vertex.h"
 #include <stdexcept>
-#include <glut/include/GL/glut.h>
+#define GLEW_STATIC
+#include <GL/glew.h>
+#include <GL/glut.h>
 #include <SFML/Graphics.hpp>
 
 

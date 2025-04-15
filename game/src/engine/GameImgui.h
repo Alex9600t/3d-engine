@@ -11,4 +11,5 @@ namespace GameImgui {
     void shutdown();
     void imguiRender(sf::RenderWindow& window);
     void showDebugMenu(sf::RenderWindow& window);
+    extern bool isConsoleOpen;
 }

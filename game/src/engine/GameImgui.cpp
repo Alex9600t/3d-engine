@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include "console.h"
+#include "mainMenu.h"
 
 static int offset = 0;
 static std::vector<float> MsGraVal(100, 0.0f); 
@@ -19,7 +21,6 @@ bool OpenGLCamTextIsNewOptBool[] = {true, true, true, true, false, false};
 const char* OpenGLCamTextIsNewOptText[] = {"-((0.1f * tan(FOV * M_PI / 360.0f)) * (float)window.getSize().x / (float)window.getSize().y)", "(0.1f * tan(FOV * M_PI / 360.0f)) * (float)window.getSize().x / (float)window.getSize().y", "0.1f * tanf(FOV * M_PI / 360.0f)", "-(0.1f * tanf(FOV * M_PI / 360.0f))", "far_val"};
 
 void GameImgui::imguiInit(sf::RenderWindow& window){
-    // Vertex::vert0 = {-0.5, -0.5, 0.0, 1.0, 0.0, 0.0};
     if (!ImGui::SFML::Init(window)) throw std::runtime_error("Ошибка инициализации ImGui");
     
 }
@@ -28,6 +29,13 @@ void GameImgui::imguistart(sf::RenderWindow& window){
     ImGui::SFML::Update(window, deltaClock.restart());
 
     GameImgui::showDebugMenu(window);
+    if (!Game::inGame) {
+
+        MainMenu::renderMainMenu();
+    }
+    // if (GameImgui::isConsoleOpen){
+        // GameImgui::showDebugConsole(window);
+    // }
 }
 void GameImgui::imguiRender(sf::RenderWindow& window){
     ImGui::SFML::Render(window);
@@ -55,6 +63,10 @@ void imDisRes(bool b){
         ImGui::EndDisabled();
     }
 }
+
+
+
+Console::ClassConsole Console::gameConsole;
 void GameImgui::showDebugMenu(sf::RenderWindow& window){
         std::ostringstream name2fps;
         name2fps << Game::FPS;
@@ -69,8 +81,6 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
 
         MsGraVal[offset] = 1.f / Game::FPS * 1000.f; 
         offset = (offset + 1) % MsGraVal.size(); 
-
-
 
     ImGui::Begin("debug");
 
@@ -96,11 +106,28 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
     }
 
     if (ImGui::CollapsingHeader("Camera")){
+        if (ImGui::Button("Load test map")) {
+            Map::loadMapFromFile("testmap");
+            Render::renderMapUpdate();
+
+            Render::Camera::camera.isFlying = true;
+        }
+        ImGui::SliderFloat("fd", &Render::tmpbool, 0.f, 10.0f);
+        ImGui::Text(std::string("x: " + std::to_string(Render::Camera::camera.pos.x)).c_str());
+        ImGui::Text(std::string("y: " + std::to_string(Render::Camera::camera.pos.y)).c_str());
+        ImGui::Text(std::string("z: " + std::to_string(-Render::Camera::camera.pos.z)).c_str());
+        ImGui::Separator();
+        ImGui::Text(std::string("y velocity: " + std::to_string(Render::Camera::camera.velocity.y)).c_str());
+        ImGui::Separator();
+        ImGui::Checkbox("Fly", &Render::Camera::camera.isFlying);
+        ImGui::Separator();
         ImGui::Text("FOV");
         ImGui::SliderFloat("Field of view", &Render::OpenGLCamera::camera.FOV, 45.0f, 180.0f);
         ImGui::Separator();
         bool lool = false;
         ImGui::Checkbox("DLSS (Delivers Lag, Stutters, and Smearing)", &lool);
+        ImGui::Separator();
+        ImGui::Checkbox("Use VBO", &Render::isUseVBO);
         ImGui::Separator();
         ImGui::Checkbox("Use default camera settings", &Render::OpenGLCamera::camera.getCameraDataBool(0));
         if (Render::renderOptional::renderOpt.selectedRenderType != 0){
@@ -141,6 +168,12 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
             ImGui::Text("WARNING: The selected render type is not supported by the engine/not made!\nI do not recommend to set this type of renderer");
         }
     }
+    if (ImGui::CollapsingHeader("Physics")) {
+        if (ImGui::Button("Set default (Physics TickRate)")){
+            Physics::physicsTickRate = 80.0f;
+        }
+        ImGui::SliderFloat("Physics TickRate", &Physics::physicsTickRate, 0.01f, 500.0f);
+    }
 
     if (ImGui::CollapsingHeader("Triangle")) {
     for (int i = 0; i < 3; i++){
@@ -156,4 +189,6 @@ void GameImgui::showDebugMenu(sf::RenderWindow& window){
     }
     }
     ImGui::End();
+    Console::gameConsole.Draw();
+
 }

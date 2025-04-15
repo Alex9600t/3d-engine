@@ -4,8 +4,9 @@
 
 namespace Event {
     void startEventKeyboard(sf::RenderWindow& window);
+    void simpleEvent(sf::RenderWindow& window);
     void calculateFPS(sf::RenderWindow& window);
-    void DebugMenuContent();
+    void iterVoid1(sf::RenderWindow&);
     void eventClose();
     void trigger0(sf::RenderWindow& window);
 

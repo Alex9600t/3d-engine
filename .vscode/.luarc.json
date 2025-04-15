@@ -1,0 +1,14 @@
+{
+    "workspace": {
+      "library": [
+        "./.vscode/lua"
+      ]
+    },
+    "runtime": {
+      "version": "Lua 5.2"
+    },
+    "diagnostics": {
+      "globals": ["Game"]
+    }
+  }
+  

@@ -30,4 +30,18 @@ namespace Material {
     // vertexTriangle vert0 (-0.5, -0.5, 0.0, 1.0, 0.0, 0.0);
     // vertexTriangle vert1;
     // vertexTriangle vert2;
+
+
+
+
+
+
+
+
+
+
+
+
+
+    float getTexCoordByType(std::string type, int index);
 }

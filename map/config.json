@@ -1,0 +1,34 @@
+[
+    {
+        "name": "testmap",
+        "pos": {
+            "x": 1.0,
+            "y": 59.3195,
+            "z": 0.25
+        }
+    },
+    {
+        "name": "test",
+        "seed": 5
+    },
+    {
+        "name": "fds",
+        "seed": 446
+    },
+    {
+        "name": "Hi",
+        "seed": 444
+    },
+    {
+        "name": "fdfsdfddsfd",
+        "seed": 832
+    },
+    {
+        "name": "tewar",
+        "seed": 232
+    },
+    {
+        "name": "testtest",
+        "seed": 3
+    }
+]
